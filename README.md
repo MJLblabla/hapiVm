@@ -2,8 +2,36 @@
 hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑复用
 
 ![Alt text](https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png "optional title")
-**hapivm**
 
+
+**业务层vm**
+　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
+　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，业务组件不考虑页面只考虑某个业务，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
+　   
+**ui层**
+　　　ui一个页面可以依赖多个业务组件
+　　　actvity:使用new 一个object依赖
+　　　fragment和dialog: 
+　　　 
+
+    enum class VmType(val type:Int) {
+    //以new 一个对象依赖
+    FROM_NEW(-1),
+    /***
+     *  复用使用activity的对象 vm对象　，
+     *   　ui发起业务处理　activity fragment都能感知到业务处理结果处理ui ,
+     *     activity和fragment共享vm里的数据,
+     *     activity和fragment之间通信
+     */
+    FROM_ACTIVITY(0),
+    /**
+     * 复用使用父fragment的对象 vm对象　，
+     */
+    FROM_PARENT(1)
+
+
+
+**依赖**
 　
      
       //actvity fragment　基础库
