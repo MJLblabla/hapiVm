@@ -12,7 +12,7 @@ fun  <T : BaseViewModel> FragmentActivity.createVm(modelClass: Class<T>):T{
     val vm = getViewModel(this,modelClass,intent.extras)
     vm.finishedActivityCall = {finish()}
     vm.getFragmentManagrCall = {supportFragmentManager}
-    if(this is LoadingObseverView){
+    if(this is LoadingObserverView){
         vm.showLoadingCall={
                showLoading(it)
         }
@@ -39,7 +39,7 @@ fun  <T : BaseViewModel> Fragment.createVm(modelClass: Class<T> , vmType: VmType
             val vm = getViewModel(this,modelClass,arguments)
             vm.finishedActivityCall = {activity?.finish()}
             vm.getFragmentManagrCall = {childFragmentManager}
-            if(this is LoadingObseverView){
+            if(this is LoadingObserverView){
                 vm.showLoadingCall={
                     showLoading(it)
                 }

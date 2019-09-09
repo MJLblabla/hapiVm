@@ -1,9 +1,10 @@
 package com.hapi.happy_dialog
 
+import com.hipi.vm.LoadingObserverView
 import com.hipi.vm.VmBinding
 
 
-abstract class BaseVmDialogFragment: BaseDialogFragment() {
+abstract class BaseVmDialogFragment: BaseDialogFragment(), LoadingObserverView {
 
 
     override fun init() {

@@ -7,9 +7,10 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import com.hapi.base_mvvm.fragment.BaseFrameFragment
+import com.hipi.vm.LoadingObserverView
 import com.hipi.vm.VmBinding
 
-abstract class BaseVmFragment: BaseFrameFragment() {
+abstract class BaseVmFragment: BaseFrameFragment() ,LoadingObserverView{
 
 
 

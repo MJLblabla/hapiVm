@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.hapi.base_mvvm.activity.BaseFrameActivity
+import com.hipi.vm.LoadingObserverView
 import com.hipi.vm.VmBinding
 
 
@@ -11,7 +12,7 @@ import com.hipi.vm.VmBinding
  * @author manjiale
  * mvvm activity
  */
-abstract class BaseVmActivity: BaseFrameActivity() {
+abstract class BaseVmActivity: BaseFrameActivity(),LoadingObserverView {
 
 
 

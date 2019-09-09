@@ -1,6 +1,6 @@
 package com.hipi.vm
 
-interface LoadingObseverView {
+interface LoadingObserverView {
 
     fun showLoading(toShow: Boolean)
 }

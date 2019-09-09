@@ -16,16 +16,20 @@ class MyDialogFragment : BaseVmDialogFragment() {
     @vm(vmType = VmType.FROM_NEW)
     lateinit var loginVm: LoginVm
 
-
     override fun observeLiveData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun initViewData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun getViewLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return R.layout.dialog1
     }
+
+    override fun showLoading(toShow: Boolean) {
+
+    }
+
 }

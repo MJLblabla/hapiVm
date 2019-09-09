@@ -29,6 +29,7 @@ class MainActivity : BaseVmActivity() {
 
         mTestVm.testLiveData.observe(this, Observer {
 
+            tvHelloWord.text="tvHelloWord${it}"
             // 干某事跟新ui
         })
     }
@@ -37,6 +38,14 @@ class MainActivity : BaseVmActivity() {
         tvHelloWord.setOnClickListener {
             // 模拟处理某业务
             mTestVm.doBusiness()
+        }
+
+        btn1.setOnClickListener {
+            Dialog1().show(supportFragmentManager,"d1")
+        }
+
+        btn2.setOnClickListener {
+            Dialog2().show(supportFragmentManager,"d2")
         }
     }
 
