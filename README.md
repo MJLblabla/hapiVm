@@ -1,9 +1,37 @@
 # hapiVm
 hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑复用
 
+![Alt text](https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png "optional title")
 
-**hapivm**
 
+**业务层vm**
+　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
+　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，业务组件不考虑页面只考虑某个业务，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
+　   
+**ui层**
+　　　ui一个页面可以依赖多个业务组件
+　　　actvity:使用new 一个object依赖
+　　　fragment和dialog: 
+　　　 
+
+    enum class VmType(val type:Int) {
+    //以new 一个对象依赖
+    FROM_NEW(-1),
+    /***
+     *  复用使用activity的对象 vm对象　，
+     *   　ui发起业务处理　activity fragment都能感知到业务处理结果处理ui ,
+     *     activity和fragment共享vm里的数据,
+     *     activity和fragment之间通信
+     */
+    FROM_ACTIVITY(0),
+    /**
+     * 复用使用父fragment的对象 vm对象　，
+     */
+    FROM_PARENT(1)
+
+
+
+**依赖**
 　
      
       //actvity fragment　基础库
@@ -22,7 +50,7 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
     
 　
 **VM 某个业务组件**
-  　　*业务组件不以页面为单，考虑复用以单一业务为单位*
+  　　*业务组件不以页面为单，以单一业务为单位*
   　　比如登录业务
     
     class LoginVm(application: Application, bundle: Bundle?): BaseViewModel(application,bundle) {
@@ -187,3 +215,80 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
     override fun getViewLayoutId(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+
+**BaseVm**
+   
+
+    
+    var mData: Bundle? = null
+        private set
+
+    /**
+     * 获取activity fm
+     */
+    var getFragmentManagrCall: (() -> FragmentManager)? = null
+
+    /**
+     * 回调showloading
+     */
+    var showLoadingCall: ((show: Boolean) -> Unit)? = null
+
+    /**
+     * 接受activity 回调
+     */
+    var finishedActivityCall: (() -> Unit)? = null
+
+    constructor(application: Application) : super(application)
+    constructor(application: Application, data: Bundle?) : super(application) {
+        mData = data
+    }
+
+
+    /**
+     * 显示弹窗
+     */
+    fun showDialog(tag: String, call: () -> DialogFragment) {
+        getFragmentManagrCall?.invoke()?.let {
+            call().show(it, tag)
+        }
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        removeCall()
+    }
+    /**
+     * 页面销毁
+     */
+    private fun removeCall() {
+        finishedActivityCall = null
+        getFragmentManagrCall = null
+        showLoadingCall = null
+    }
+
+    fun getAppContext(): Application {
+        return getApplication<Application>()
+    }
+
+    fun toast(@StringRes msgRes: Int) {
+        Toast.makeText(getAppContext(), getAppContext().resources.getString(msgRes), Toast.LENGTH_SHORT).show()
+    }
+
+    fun toast(msg: String?) {
+        if (!TextUtils.isEmpty(msg)) {
+            Toast.makeText(getAppContext(), msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+**BaseFrame库**
+ 
+  hapi系列架构activity fragment dialog基础库　，封装基本操作，完善中
+
+　hapi系列架构完善中．．．[此处输入链接的描述][1]
+
+
+  [1]: https://github.com/MJLblabla/HapiDepend
