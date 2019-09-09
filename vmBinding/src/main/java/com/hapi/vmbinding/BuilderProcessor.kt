@@ -35,7 +35,6 @@ class BuilderProcessor : AbstractProcessor() {
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
         AptContext.init(processingEnv)
-        Logger.warn("init  ")
         for (item in processingEnv.options) {
             if (item.key.equals(KAPT_KOTLIN_GENERATED_OPTION_NAME)) {
                 mOutputDirectory = item.value
@@ -45,9 +44,7 @@ class BuilderProcessor : AbstractProcessor() {
 
     override fun process(annotations: MutableSet<out TypeElement>?, env: RoundEnvironment): Boolean {
 
-        Logger.warn("process.process    start")
         val viewClassMap = HashMap<Element, ViewClass>()
-
         env.getElementsAnnotatedWith(vm::class.java).forEach {
             val viewElement = it.enclosingElement as TypeElement
             var viewClass = viewClassMap[viewElement]
@@ -57,8 +54,6 @@ class BuilderProcessor : AbstractProcessor() {
             }
             viewClass.vms.add(VmFiled(it as VariableElement))
         }
-
-        Logger.warn("viewClassMap  "+viewClassMap)
         viewClassMap.forEach { _, viewClass ->
             viewClass.build(mOutputDirectory)
         }
