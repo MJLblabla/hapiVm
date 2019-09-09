@@ -1,0 +1,6 @@
+include ':app'
+include ":vmAnnotation"
+include ':happy_dialog'
+include ':happy_vm'
+include ':vmBinding'
+include 'base_frame'
