@@ -6,7 +6,7 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
 
 **业务层vm**
 　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
-　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，业务组件不考虑页面只考虑某个业务，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
+　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，优先考虑单一业务逻辑，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
 　   
 **ui层**
 　　　ui一个页面可以依赖多个业务组件
@@ -50,7 +50,7 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
     
 　
 **VM 某个业务组件**
-  　　*业务组件不以页面为单，以单一业务为单位*
+  　　*业务组件不以页面为单，优先考虑单一业务逻辑*
   　　比如登录业务
     
     class LoginVm(application: Application, bundle: Bundle?): BaseViewModel(application,bundle) {
