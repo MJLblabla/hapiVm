@@ -1,18 +1,18 @@
-# hapiVm
-hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑复用
+#
+ 新版base框架　解决旧版　livedata爆炸　vm功能不清晰不完善　业务逻辑不能复用
 
-![Alt text](https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png "optional title")
+![此处输入图片的描述][1]
 
 
 **业务层vm**
 　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
 　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，业务组件不考虑页面只考虑某个业务，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
-　   
+　
 **ui层**
 　　　ui一个页面可以依赖多个业务组件
 　　　actvity:使用new 一个object依赖
-　　　fragment和dialog: 
-　　　 
+　　　fragment和dialog:
+　　　
 
     enum class VmType(val type:Int) {
     //以new 一个对象依赖
@@ -33,26 +33,26 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
 
 **依赖**
 　
-     
+
       //actvity fragment　基础库
     implementation 'com.github.MJLblabla.hapiVm:base_frame:tag'
      // dialogfragment 基础库
     implementation 'com.github.MJLblabla.hapiVm:happy_dialog:tag'
-    
+
     //如果不使用hapi组件的view(BaseVmActvity,BaseVmFragment,BaseVmDialogFragment)
     implementation 'com.github.MJLblabla.hapiVm:happy_vm:tag'
     //vm 注解 如果需要注解绑定 vm
     kapt 'com.github.MJLblabla.hapiVm:vmBinding:tag'
-    
-    
-    
-    
-    
+
+
+
+
+
 　
 **VM 某个业务组件**
   　　*业务组件不以页面为单，以单一业务为单位*
   　　比如登录业务
-    
+
     class LoginVm(application: Application, bundle: Bundle?): BaseViewModel(application,bundle) {
 
     val loginLiveData by lazy { MutableLiveData<User>() }
@@ -61,7 +61,7 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
         checkAutoLogin()
     }
 
-    
+
     //检查是不是可以自动登录
     private fun checkAutoLogin(){
         // load sp
@@ -115,10 +115,10 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
     }
 }
 
-    
-    
+
+
 **activity**
- 
+
 
     class MainActivity : BaseVmActivity() {
     /**
@@ -131,10 +131,10 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
      */
     @vm
     lateinit var loginVm: LoginVm
-    
+
     //组合自己该页面需要的业务组件
     //.....
-    
+
     override fun observeLiveData() {
         loginVm.loginLiveData.observe(this, Observer {
             //　登录成功　监听
@@ -163,7 +163,7 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
 　
 **fragment**
 
-    
+
     class MyFragment : BaseVmFragment() {
 
     //使用　父fragment  vm对象　　和父fragment通信
@@ -218,9 +218,9 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
 
 
 **BaseVm**
-   
 
-    
+
+
     var mData: Bundle? = null
         private set
 
@@ -283,12 +283,4 @@ hapi基础库，快速开启ViewModel　livedata  业务组件化，业务逻辑
     }
 
 
-
-**BaseFrame库**
- 
-  hapi系列架构activity fragment dialog基础库　，封装基本操作，完善中
-
-　hapi系列架构完善中．．．[此处输入链接的描述][1]
-
-
-  [1]: https://github.com/MJLblabla/HapiDepend
+  [1]: http://git.7guoyouxi.com/android_repo/base-frame-new/blob/latest_branch/img/ic.png
