@@ -30,18 +30,6 @@
 
 
 
-**依赖**
-　
-
-      //actvity fragment　基础库
-    implementation 'com.github.MJLblabla.hapiVm:base_frame:tag'
-     // dialogfragment 基础库
-    implementation 'com.github.MJLblabla.hapiVm:happy_dialog:tag'
-
-    //如果不使用hapi组件的view(BaseVmActvity,BaseVmFragment,BaseVmDialogFragment)
-    implementation 'com.github.MJLblabla.hapiVm:happy_vm:tag'
-    //vm 注解 如果需要注解绑定 vm
-    kapt 'com.github.MJLblabla.hapiVm:vmBinding:tag'
 
 
 
