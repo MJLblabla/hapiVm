@@ -3,7 +3,6 @@
 
 ![此处输入图片的描述][1]
 
-
 **业务层vm**
 　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
 　   相比于mvp中的p presenter需要定义大量interface ,presenter只为单页面服务，业务组件不考虑页面只考虑某个业务，业务逻辑处理需要跟新ui的地方通过livedate回调给ui
@@ -283,4 +282,4 @@
     }
 
 
-  [1]: http://git.7guoyouxi.com/android_repo/base-frame-new/blob/latest_branch/img/ic.png
+  [1]: http://git.7guoyouxi.com/android_repo/base-frame-new/raw/latest_branch/img/ic.png
