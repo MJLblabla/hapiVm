@@ -1,8 +1,8 @@
 package com.hapi.happy_dialog
 
 import android.os.Bundle
-import android.support.annotation.StyleRes
-import android.support.v4.app.DialogFragment
+import androidx.annotation.StyleRes
+import androidx.fragment.app.DialogFragment
 import android.view.*
 
 abstract class BaseDialogFragment : DialogFragment() {
@@ -59,21 +59,21 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         //STYLE_NO_FRAME设置之后会调至无法自动点击外部自动消失，因此添加手动控制
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window.applyGravityStyle(mGravityEnum, animationStyleresId)
+        dialog?.setCanceledOnTouchOutside(true)
+        dialog?.window?.applyGravityStyle(mGravityEnum, animationStyleresId)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //取消系统对dialog样式上的干扰，防止dialog宽度无法全屏
-        setStyle(android.support.v4.app.DialogFragment.STYLE_NO_FRAME, R.style.dialogFullScreen)
+        setStyle(androidx.fragment.app.DialogFragment.STYLE_NO_FRAME, R.style.dialogFullScreen)
     }
 
     override fun onResume() {
         super.onResume()
-        dialog.setCanceledOnTouchOutside(mCancelable)
-        dialog.setOnKeyListener { v, keyCode, event -> keyCode == KeyEvent.KEYCODE_BACK }
+        dialog?.setCanceledOnTouchOutside(mCancelable)
+        dialog?.setOnKeyListener { v, keyCode, event -> keyCode == KeyEvent.KEYCODE_BACK }
     }
 
     abstract fun getViewLayoutId(): Int
@@ -91,10 +91,10 @@ abstract class BaseDialogFragment : DialogFragment() {
         /**
          * 点击确定，并携带指定类型参数
          */
-        open fun onDialogPositiveClick(dialog: android.support.v4.app.DialogFragment, any: Any = Any()) {}
+        open fun onDialogPositiveClick(dialog: androidx.fragment.app.DialogFragment, any: Any = Any()) {}
 
-        open fun onDialogNegativeClick(dialog: android.support.v4.app.DialogFragment, any: Any = Any()) {}
-        open fun onDismiss(dialog: android.support.v4.app.DialogFragment, any: Any = Any()) {}
+        open fun onDialogNegativeClick(dialog: androidx.fragment.app.DialogFragment, any: Any = Any()) {}
+        open fun onDismiss(dialog: androidx.fragment.app.DialogFragment, any: Any = Any()) {}
     }
 
 

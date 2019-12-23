@@ -1,6 +1,6 @@
 package com.hapi.happy_dialog
 
-import android.support.annotation.StyleRes
+import androidx.annotation.StyleRes
 import android.view.ViewGroup
 import android.view.Window
 

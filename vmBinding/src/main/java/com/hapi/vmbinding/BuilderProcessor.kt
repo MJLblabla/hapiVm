@@ -49,6 +49,8 @@ class BuilderProcessor : AbstractProcessor() {
             val viewElement = it.enclosingElement as TypeElement
             var viewClass = viewClassMap[viewElement]
             if(viewClass==null){
+
+                 Logger.warn("viewElement  "+viewElement.qualifiedName)
                  viewClass = ViewClass(viewElement)
                 viewClassMap[viewElement] = viewClass
             }

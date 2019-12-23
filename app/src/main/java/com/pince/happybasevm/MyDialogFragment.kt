@@ -1,6 +1,6 @@
 package com.pince.happybasevm
 
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import com.hapi.happy_dialog.BaseDialogFragment
 import com.hapi.happy_dialog.BaseVmDialogFragment
 import com.hapi.vmannotation.VmType

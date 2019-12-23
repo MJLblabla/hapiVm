@@ -1,11 +1,11 @@
 package com.hapi.base_mvvm.mvvm
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.hapi.base_mvvm.fragment.BaseFrameFragment
 import com.hipi.vm.LoadingObserverView
 import com.hipi.vm.VmBinding

@@ -1,6 +1,6 @@
 package com.pince.happybasevm
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.view.Gravity
 import com.hapi.base_mvvm.mvvm.BaseVmFragment
 import com.hapi.happy_dialog.BaseDialogFragment

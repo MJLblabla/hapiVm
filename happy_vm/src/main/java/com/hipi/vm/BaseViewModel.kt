@@ -1,13 +1,13 @@
 package com.hipi.vm
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import android.os.Bundle
-import android.support.annotation.IntegerRes
-import android.support.annotation.StringRes
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IntegerRes
+import androidx.annotation.StringRes
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import android.text.TextUtils
 import android.widget.Toast
 
@@ -24,7 +24,7 @@ open class BaseViewModel : AndroidViewModel {
     /**
      * 获取activity fm
      */
-    var getFragmentManagrCall: (() -> FragmentManager)? = null
+    var getFragmentManagrCall: (() -> androidx.fragment.app.FragmentManager)? = null
 
     /**
      * 回调showloading
@@ -45,7 +45,7 @@ open class BaseViewModel : AndroidViewModel {
     /**
      * 显示弹窗
      */
-    fun showDialog(tag: String, call: () -> DialogFragment) {
+    fun showDialog(tag: String, call: () -> androidx.fragment.app.DialogFragment) {
         getFragmentManagrCall?.invoke()?.let {
             call().show(it, tag)
         }

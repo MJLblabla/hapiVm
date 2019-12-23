@@ -1,9 +1,9 @@
 package com.pince.happybasevm
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import com.hapi.happy_dialog.BaseDialogFragment
 import com.hipi.vm.BaseViewModel
 import com.pince.happybasevm.been.User
@@ -51,15 +51,15 @@ class LoginVm(application: Application, bundle: Bundle?): BaseViewModel(applicat
             showDialog("Login"){
                 MyDialogFragment().apply {
                     setDefaultListener(object : BaseDialogFragment.BaseDialogListener() {
-                        override fun onDialogNegativeClick(dialog: DialogFragment, any: Any) {
+                        override fun onDialogNegativeClick(dialog: androidx.fragment.app.DialogFragment, any: Any) {
                             super.onDialogNegativeClick(dialog, any)
                         }
 
-                        override fun onDialogPositiveClick(dialog: DialogFragment, any: Any) {
+                        override fun onDialogPositiveClick(dialog: androidx.fragment.app.DialogFragment, any: Any) {
                             super.onDialogPositiveClick(dialog, any)
                         }
 
-                        override fun onDismiss(dialog: DialogFragment, any: Any) {
+                        override fun onDismiss(dialog: androidx.fragment.app.DialogFragment, any: Any) {
                             super.onDismiss(dialog, any)
                         }
                     })

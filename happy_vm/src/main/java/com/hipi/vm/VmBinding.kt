@@ -1,14 +1,14 @@
 package com.hipi.vm
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.hapi.vmannotation.buidFuncName
 import com.hapi.vmannotation.suffix
 
 
 object VmBinding {
 
-     fun bindVm(target: FragmentActivity){
+     fun bindVm(target: androidx.fragment.app.FragmentActivity){
           val classs = target.javaClass
           val claName = classs.name + suffix
           val clazz = Class.forName(claName)
@@ -18,7 +18,7 @@ object VmBinding {
      }
 
 
-     fun bindVm(target:Fragment){
+     fun bindVm(target: androidx.fragment.app.Fragment){
           val classs = target.javaClass
           val claName = classs.name + suffix
           val clazz = Class.forName(claName)

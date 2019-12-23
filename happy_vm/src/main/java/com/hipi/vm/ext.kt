@@ -1,42 +1,40 @@
 package com.hipi.vm
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.hapi.vmannotation.VmType
 
 
 fun  <T : BaseViewModel> FragmentActivity.createVm(modelClass: Class<T>):T{
-    val vm = getViewModel(this,modelClass,intent.extras)
+    val vm = getViewModel(this, modelClass, intent.extras)
     vm.finishedActivityCall = {finish()}
     vm.getFragmentManagrCall = {supportFragmentManager}
     if(this is LoadingObserverView){
         vm.showLoadingCall={
-               showLoading(it)
+            showLoading(it)
         }
     }
     return vm
 }
 
 
-fun  <T : BaseViewModel> Fragment.createVm(modelClass: Class<T> , vmType: VmType):T{
+fun  <T : BaseViewModel> Fragment.createVm(modelClass: Class<T>, vmType: VmType):T{
     when(vmType){
         VmType.FROM_ACTIVITY ->{
-            val vm = ViewModelProviders.of(activity!!)
-                .get(modelClass)
+            val vm = getViewModel(activity!!, modelClass, arguments)
             return vm
         }
 
         VmType.FROM_PARENT ->{
-            val vm = ViewModelProviders.of(parentFragment!!)
-                .get(modelClass)
+            val vm = getViewModel(parentFragment!!, modelClass, arguments)
             return vm
         }
         else ->{
 
-            val vm = getViewModel(this,modelClass,arguments)
+            val vm = getViewModel(this, modelClass, arguments)
             vm.finishedActivityCall = {activity?.finish()}
             vm.getFragmentManagrCall = {childFragmentManager}
             if(this is LoadingObserverView){
@@ -55,5 +53,5 @@ private fun <T : ViewModel> getViewModel(context: Fragment,modelClass: Class<T>,
 }
 
 private fun <T : ViewModel> getViewModel(context: FragmentActivity,modelClass: Class<T>, bundle: Bundle?): T {
-   return ViewModelProviders.of(context, ViewModelFactory(context.application, bundle)).get(modelClass)
+    return ViewModelProviders.of(context, ViewModelFactory(context.application, bundle)).get(modelClass)
 }

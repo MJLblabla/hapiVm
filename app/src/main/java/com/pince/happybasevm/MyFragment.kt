@@ -1,6 +1,6 @@
 package com.pince.happybasevm
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.hapi.base_mvvm.fragment.BaseFrameFragment
 import com.hapi.base_mvvm.mvvm.BaseVmFragment
 import com.hapi.vmannotation.VmType

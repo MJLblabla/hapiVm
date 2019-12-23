@@ -25,11 +25,15 @@ class ViewClass(private val typeElement: TypeElement) {
      * 生成的类名
      */
     private val generaClassName = simpleName + suffix
-    private val activityClassType = ClassName("android.support.v4.app", "FragmentActivity")
-    private val fragmentClassName = ClassName("android.support.v4.app", "Fragment")
+    private val activityClassType = ClassName("androidx.appcompat.app", "AppCompatActivity")
+    private val fragmentClassName = ClassName("androidx.fragment.app", "Fragment")
+    private val dilogClassName = ClassName("androidx.fragment.app", "DialogFragment")
+
     private val createVm = ClassName("com.hipi.vm", "createVm")
     private val isActivity = typeElement.asType().isSubTypeOf(activityClassType.canonicalName)
     private val isFragMent = typeElement.asType().isSubTypeOf(fragmentClassName.canonicalName)
+    private val isDilog =  typeElement.asType().isSubTypeOf(fragmentClassName.canonicalName)
+
 
     private var targetName = "target"
 

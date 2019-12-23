@@ -3,6 +3,7 @@ package com.hapi.vmbinding.aptUtils.types
 
 
 import com.hapi.vmbinding.aptUtils.AptContext
+import com.hapi.vmbinding.aptUtils.logger.Logger
 import com.squareup.javapoet.TypeName
 import com.squareup.kotlinpoet.*
 import javax.lang.model.element.Element
@@ -26,7 +27,10 @@ object TypeUtils {
         return name
     }
 
-    internal fun getTypeFromClassName(className: String) = AptContext.elements.getTypeElement(className).asType()
+    internal fun getTypeFromClassName(className: String) :TypeMirror {
+        Logger.warn("getTypeFromClassName  "+className.toString())
+       return AptContext.elements.getTypeElement(className).asType()
+    }
 }
 
 fun TypeElement.packageName(): String {

@@ -1,7 +1,7 @@
 package com.pince.happybasevm
 
-import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.hapi.base_mvvm.mvvm.BaseVmActivity
 import com.hapi.vmannotation.vm
