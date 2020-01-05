@@ -1,6 +1,19 @@
 #
  新版base框架　解决旧版　livedata爆炸　vm功能不清晰不完善　业务逻辑不能复用
 
+
+  implementation "com.pince.maven:lib-vmannotation:version"
+
+  kapt "com.pince.maven:lib-vmbinding:version"
+
+  implementation "com.pince.maven:lib-vm:version"
+
+  implementation "com.pince.maven:lib-vmdialog:version"
+
+  implementation "com.pince.maven:lib-vmbaseframe:version"
+
+
+
 ![此处输入图片的描述][1]
 
 **业务层vm**
