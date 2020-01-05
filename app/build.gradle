@@ -38,6 +38,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation project(":base_frame")
     implementation project(":happy_dialog")
+    implementation project(":vmAnnotation")
     kapt project(":vmBinding")
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
