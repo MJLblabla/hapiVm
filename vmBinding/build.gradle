@@ -19,7 +19,7 @@ upinfo{
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
-    implementation project(":vmAnnotation")
+    implementation "com.pince.maven:lib-vmannotation:1.0.0"
     api "com.squareup:kotlinpoet:1.0.0-RC1"
     api "com.squareup:javapoet:1.10.0"
     compileOnly files(Jvm.current().getToolsJar())
