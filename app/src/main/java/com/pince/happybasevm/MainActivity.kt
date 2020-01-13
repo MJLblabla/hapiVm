@@ -33,9 +33,6 @@ class MainActivity : BaseVmActivity() {
         })
     }
 
-    override fun getToolBarTitle(): String {
-        return "hahha"
-    }
 
     override fun initViewData() {
         tvHelloWord.setOnClickListener {
@@ -66,6 +63,10 @@ class MainActivity : BaseVmActivity() {
 
     override fun isToolBarEnable(): Boolean {
         return true
+    }
+
+    override fun getToolBarTitle(): String {
+        return "hahaha"
     }
 
     override fun requestToolbarMode(): Int {

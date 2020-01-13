@@ -41,8 +41,8 @@ dependencies {
     kapt "com.pince.maven:lib-vmbinding:$vmversion"
     implementation "com.pince.maven:lib-vm:$vmversion"
     implementation "com.pince.maven:lib-vmdialog:$vmversion"
-    implementation "com.pince.maven:lib-vmbaseframe:$vmversion"
-
+//    implementation "com.pince.maven:lib-vmbaseframe:$vmversion"
+    implementation project(":base_frame")
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 

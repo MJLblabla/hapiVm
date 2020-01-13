@@ -102,7 +102,6 @@ abstract class BaseFrameActivity : AppCompatActivity(), Toolbar.OnMenuItemClickL
     }
 
     open fun getToolBarTitle(): String {
-
         return title as String
     }
 
