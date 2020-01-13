@@ -1,19 +1,16 @@
 package com.hapi.base_mvvm.activity
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.*
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.*
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.hapi.base_mvvm.R
 import com.hapi.base_mvvm.uitil.ClickUtil
 import com.hapi.base_mvvm.uitil.SoftInputUtil
-import kotlinx.android.synthetic.main.frame_base_container.*
 
 
 /**
@@ -26,13 +23,12 @@ abstract class BaseFrameActivity : AppCompatActivity(), Toolbar.OnMenuItemClickL
     /**
      * 根布局
      */
-    private lateinit var mRootView: View
+    private lateinit var mRootView: ViewGroup
 
     var mToolbar: Toolbar? = null
         private set
     private var centerTitle: TextView? = null
 
-    private lateinit var mContainer: FrameLayout
     private var mContentView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,43 +41,53 @@ abstract class BaseFrameActivity : AppCompatActivity(), Toolbar.OnMenuItemClickL
         }
         onActivityCreateStart()
         changeTheme()
-        setContentView(R.layout.frame_base_container)
-        mRootView = findViewById(R.id.frame_base_root)
-        val viewStubToolbar = frame_base_container_toolbar
+        setContentView(mContentView)
+        mRootView = findViewById(android.R.id.content)
         if (isToolBarEnable()) {
             var toolbarLayoutId = 0
-            if (isTitleCenter()) {
-                toolbarLayoutId = R.layout.frame_base_toolbar_center
+            toolbarLayoutId = if (isTitleCenter()) {
+                R.layout.frame_base_toolbar_center
             } else {
-                toolbarLayoutId = R.layout.frame_base_toolbar_normal
+                R.layout.frame_base_toolbar_normal
             }
-            viewStubToolbar.layoutResource = toolbarLayoutId
-            mToolbar = viewStubToolbar.inflate() as Toolbar
-
+            mToolbar = mInflater.inflate(toolbarLayoutId, null) as Toolbar
+            var barHeight =
+                resources.getDimensionPixelOffset(R.dimen.abc_action_bar_default_height_material)
+            mRootView.addView(
+                mToolbar, ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    barHeight
+                )
+            )
             if (isTitleCenter()) {
                 centerTitle = mToolbar?.findViewById(R.id.toolbar_title_tv)
             }
-        } else {
-            viewStubToolbar.visibility = View.GONE
+
+
+            val mode = requestToolbarMode()
+            if (mode == ToolbarMode.Layer) {
+                val params = mContentView!!.layoutParams as FrameLayout.LayoutParams
+                params?.let {
+                    it.setMargins(
+                        params.leftMargin,
+                        barHeight,
+                        params.rightMargin,
+                        params.bottomMargin
+                    )
+                    mContentView!!.layoutParams = it
+
+                }
+
+            }
+
+            setToolbarTitle(getToolBarTitle())
+            setupToolbar()
         }
 
-        setupToolbar()
 
-        mContainer = findViewById(R.id.frame_base_container)
+//        mContainer = findViewById(R.id.frame_base_container)
 
-        val params = mContainer.layoutParams as RelativeLayout.LayoutParams
 
-        val mode = requestToolbarMode()
-        if (mode == ToolbarMode.Layer && params != null) {
-            params.addRule(RelativeLayout.BELOW, R.id.frame_base_toolbar)
-            mContainer.layoutParams = params
-        }
-        // 设置ContentView
-        mContainer.addView(
-            mContentView,
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        )
-        setToolbarTitle(title)
         init()
     }
 
@@ -91,8 +97,13 @@ abstract class BaseFrameActivity : AppCompatActivity(), Toolbar.OnMenuItemClickL
 
 
     @ToolbarMode
-    protected fun requestToolbarMode(): Int {
+    open fun requestToolbarMode(): Int {
         return ToolbarMode.Layer
+    }
+
+    open fun getToolBarTitle(): String {
+
+        return title as String
     }
 
     /**
