@@ -1,8 +1,7 @@
 package com.pince.happybasevm
 
 import androidx.lifecycle.Observer
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.hapi.base_mvvm.activity.ToolbarMode
 import com.hapi.base_mvvm.mvvm.BaseVmActivity
 import com.hapi.vmannotation.vm
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,14 +11,14 @@ class MainActivity : BaseVmActivity() {
      * 某个业务组件
      */
     @vm
-    lateinit var mTestVm:TestVm
+    lateinit var mTestVm: TestVm
     /**
      * 登录业务组件
      */
     @vm
     lateinit var loginVm: LoginVm
 
-     //组合自己该页面需要的业务组件
+    //组合自己该页面需要的业务组件
     //.....
 
     override fun observeLiveData() {
@@ -29,10 +28,11 @@ class MainActivity : BaseVmActivity() {
 
         mTestVm.testLiveData.observe(this, Observer {
 
-            tvHelloWord.text="tvHelloWord${it}"
+            tvHelloWord.text = "tvHelloWord${it}"
             // 干某事跟新ui
         })
     }
+
 
     override fun initViewData() {
         tvHelloWord.setOnClickListener {
@@ -41,13 +41,14 @@ class MainActivity : BaseVmActivity() {
         }
 
         btn1.setOnClickListener {
-            Dialog1().show(supportFragmentManager,"d1")
+            Dialog1().show(supportFragmentManager, "d1")
         }
 
         btn2.setOnClickListener {
-            Dialog2().show(supportFragmentManager,"d2")
+            Dialog2().show(supportFragmentManager, "d2")
         }
     }
+
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -55,4 +56,22 @@ class MainActivity : BaseVmActivity() {
 
     override fun showLoading(toShow: Boolean) {
     }
+
+    override fun isTitleCenter(): Boolean {
+        return false
+    }
+
+    override fun isToolBarEnable(): Boolean {
+        return true
+    }
+
+    override fun getToolBarTitle(): String {
+        return "hahaha"
+    }
+
+    override fun requestToolbarMode(): Int {
+        return ToolbarMode.Layer
+    }
+
+
 }
