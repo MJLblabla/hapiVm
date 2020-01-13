@@ -10,7 +10,7 @@ apply plugin: 'com.pince.upaar'
 upinfo{
     groupId = 'com.pince.maven' //选填 默认为此参数
     artifactId = 'lib-vmbinding' //必填 组件名称
-    version = '1.0.0'     //必填 组件版本
+    version = '1.0.1'     //必填 组件版本
     gitRepo = 'origin' //选填
     packaging = 'aar' //选填 默认aar 可填jar
 }
@@ -19,7 +19,7 @@ upinfo{
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
-    implementation project(":vmAnnotation")
+    implementation "com.pince.maven:lib-vmannotation:$vmversion"
     api "com.squareup:kotlinpoet:1.0.0-RC1"
     api "com.squareup:javapoet:1.10.0"
     compileOnly files(Jvm.current().getToolsJar())
