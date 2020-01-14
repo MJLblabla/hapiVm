@@ -48,7 +48,8 @@ dependencies {
     implementation "com.pince.maven:lib-vm:$vmversion"
     implementation "com.pince.maven:lib-vmannotation:$vmversion"
     implementation depend.lifecycle()
-
+    //刷新分页控件
+    api "com.pince.maven:lib-refresh:1.0.3"
 
 
 
