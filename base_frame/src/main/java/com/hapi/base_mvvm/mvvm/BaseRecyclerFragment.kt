@@ -3,8 +3,9 @@ package com.hapi.base_mvvm.mvvm
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hapi.base_mvvm.R
-import com.pince.refresh.IEmptyView
-import com.pince.refresh.SmartRecyclerView
+import com.hapi.base_mvvm.wigdt.refresh.IEmptyView
+import com.hapi.base_mvvm.wigdt.refresh.SmartRecyclerView
+
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import kotlinx.android.synthetic.main.layout_smartrecycler.*

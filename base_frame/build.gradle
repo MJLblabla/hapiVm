@@ -4,16 +4,10 @@ apply plugin: 'kotlin-android'
 
 
 
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.MJLblabla'
 
-apply plugin: 'com.pince.upaar'
 
-upinfo{
-    groupId = 'com.pince.maven' //选填 默认为此参数
-    artifactId = 'lib-vmbaseframe' //必填 组件名称
-    version = '1.0.2'     //必填 组件版本
-    gitRepo = 'origin' //选填
-    packaging = 'aar' //选填 默认aar 可填jar
-}
 
 
 android {
@@ -40,16 +34,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.pince.maven:lib-vm:$vmversion"
-    implementation "com.pince.maven:lib-vmannotation:$vmversion"
+    implementation project(":happy_vm")
+    implementation project(":vmAnnotation")
     implementation depend.lifecycle()
-    //刷新分页控件
-    api "com.pince.maven:lib-refresh:1.0.3"
+    api depend.recyclerview()
+    api depend.appcompat()
+    api depend.design()
+    api depend.constraintLayout()
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-20'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
 
 
 
