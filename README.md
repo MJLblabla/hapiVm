@@ -29,6 +29,7 @@
 　　　
 
 ![此处输入图片的描述][2]
+
     enum class VmType(val type:Int) {
     //以new 一个对象依赖
     FROM_NEW(-1),
@@ -43,8 +44,6 @@
      * 复用使用父fragment的对象 vm对象　，
      */
     FROM_PARENT(1)
-
-
 
 
 
@@ -289,3 +288,5 @@
 
   [1]: https://github.com/MJLblabla/hapiReposity
   [2]: https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png
+
+
