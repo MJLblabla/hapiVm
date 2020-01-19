@@ -14,8 +14,9 @@
     //vm 注解 如果需要注解绑定 vm
     kapt 'com.github.MJLblabla.hapiVm:vmBinding:tag'
 
+  
+　数据源层可以参考　[点我点我][1]
 
-![此处输入图片的描述][1]
 
 **业务层vm**
 　   业务组件拆分，如登录业务，视频通话呼叫业务，视频通话房间业务，送礼物业务组件
@@ -27,6 +28,7 @@
 　　　fragment和dialog:
 　　　
 
+![此处输入图片的描述][2]
     enum class VmType(val type:Int) {
     //以new 一个对象依赖
     FROM_NEW(-1),
@@ -285,4 +287,5 @@
 　
 
 
-  [1]: https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png
+  [1]: https://github.com/MJLblabla/hapiReposity
+  [2]: https://github.com/MJLblabla/hapiVm/blob/latest_branch/img/ic.png
