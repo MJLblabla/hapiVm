@@ -39,10 +39,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
 
-    implementation project(":vmAnnotation")
+
     implementation project(":happy_dialog")
     implementation project(":happy_vm")
-    kapt project(":vmBinding")
+ 
 
     implementation project(":base_frame")
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.hapi.base_mvvm.fragment.BaseFrameFragment
 import com.hipi.vm.LoadingObserverView
-import com.hipi.vm.VmBinding
 
 abstract class BaseVmFragment: BaseFrameFragment() ,LoadingObserverView{
 
@@ -16,7 +15,7 @@ abstract class BaseVmFragment: BaseFrameFragment() ,LoadingObserverView{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        VmBinding.bindVm(this)
+
         observeLiveData()
         initViewData()
     }

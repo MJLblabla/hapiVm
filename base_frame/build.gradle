@@ -39,17 +39,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(":happy_vm")
-    implementation project(":vmAnnotation")
+
     implementation depend.lifecycle()
     api depend.recyclerview()
     api depend.appcompat()
     api depend.design()
     api depend.constraintLayout()
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-20'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.44'
-
+    api 'com.github.MJLblabla:samrtload:v1.0'
 
 
 }
