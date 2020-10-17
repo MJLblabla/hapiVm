@@ -11,14 +11,18 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import java.lang.reflect.InvocationTargetException
 
 
-class FragmentVmFac (private val application: Application, private val bundle: Bundle?, private val f:Fragment ): AndroidViewModelFactory(application) {
+class FragmentVmFac(
+    private val application: Application,
+    private val bundle: Bundle?,
+    private val f: Fragment
+) : AndroidViewModelFactory(application) {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return try {
             val constructor1 = modelClass.getConstructor(
                 Application::class.java,
                 Bundle::class.java
             )
-            val vm:T =
+            val vm: T =
                 if (constructor1 == null) {
                     val constructor2 =
                         modelClass.getConstructor(Application::class.java)
@@ -26,7 +30,7 @@ class FragmentVmFac (private val application: Application, private val bundle: B
                 } else {
                     constructor1.newInstance(application, bundle)
                 }
-            if(vm is BaseViewModel){
+            if (vm is BaseViewModel) {
                 vm.finishedActivityCall = { f.activity?.finish() }
                 vm.getFragmentManagrCall = { f.childFragmentManager }
                 if (f is LoadingObserverView) {
@@ -50,14 +54,18 @@ class FragmentVmFac (private val application: Application, private val bundle: B
 }
 
 
-class ActivityVmFac (private val application: Application, private val bundle: Bundle?, private val act:FragmentActivity ): AndroidViewModelFactory(application) {
+class ActivityVmFac(
+    private val application: Application,
+    private val bundle: Bundle?,
+    private val act: FragmentActivity
+) : AndroidViewModelFactory(application) {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return try {
             val constructor1 = modelClass.getConstructor(
                 Application::class.java,
                 Bundle::class.java
             )
-            val vm:T =
+            val vm: T =
                 if (constructor1 == null) {
                     val constructor2 =
                         modelClass.getConstructor(Application::class.java)
@@ -65,7 +73,7 @@ class ActivityVmFac (private val application: Application, private val bundle: B
                 } else {
                     constructor1.newInstance(application, bundle)
                 }
-            if(vm is BaseViewModel){
+            if (vm is BaseViewModel) {
                 vm.finishedActivityCall = { act.finish() }
                 vm.getFragmentManagrCall = { act.supportFragmentManager }
                 if (act is LoadingObserverView) {
@@ -89,12 +97,31 @@ class ActivityVmFac (private val application: Application, private val bundle: B
 }
 
 
+inline fun <reified VM : BaseViewModel> FragmentActivity.createVm(
+    factoryProducer: AndroidViewModelFactory? = null
+): VM {
+    val factoryPromise = factoryProducer ?: ActivityVmFac(application, intent.extras, this);
+    val vm = ViewModelProviders.of(this, factoryPromise).get(VM::class.java)
+    return vm
+}
+
+
+
+inline fun <reified VM : BaseViewModel> Fragment.createVm(
+    factoryProducer: AndroidViewModelFactory? = null
+): VM {
+    val act = requireActivity()
+    val factoryPromise = factoryProducer ?: FragmentVmFac(act.application,   arguments, this);
+    val vm = ViewModelProviders.of(this, factoryPromise).get(VM::class.java)
+    return vm
+}
+
 
 inline fun <reified VM : BaseViewModel> FragmentActivity.lazyVm(
     noinline factoryProducer: (() -> ViewModelProvider.Factory)? = null
 ): Lazy<VM> {
     val factoryPromise = factoryProducer ?: {
-        ActivityVmFac(application, intent.extras,this);
+        ActivityVmFac(application, intent.extras, this);
     }
     val vm = ViewModelLazy(VM::class, { viewModelStore }, factoryPromise)
     return vm
@@ -103,8 +130,14 @@ inline fun <reified VM : BaseViewModel> FragmentActivity.lazyVm(
 @MainThread
 inline fun <reified VM : BaseViewModel> Fragment.lazyVm(
     noinline ownerProducer: () -> ViewModelStoreOwner = { this },
-    noinline factoryProducer: (() -> ViewModelProvider.Factory)? = { FragmentVmFac(activity!!.application,arguments,this)}
-) : Lazy<VM>{
+    noinline factoryProducer: (() -> ViewModelProvider.Factory)? = {
+        FragmentVmFac(
+            activity!!.application,
+            arguments,
+            this
+        )
+    }
+): Lazy<VM> {
     val vm = createViewModelLazy(VM::class, { ownerProducer().viewModelStore }, factoryProducer);
 
     return vm
@@ -118,7 +151,7 @@ inline fun <reified VM : BaseViewModel> Fragment.activityVm(
     factoryProducer ?: {
 
         val act = requireActivity()
-        ActivityVmFac(act.application, act.intent.extras,act);
+        ActivityVmFac(act.application, act.intent.extras, act);
     }
 )
 
