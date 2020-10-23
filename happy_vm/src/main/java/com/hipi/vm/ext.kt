@@ -2,6 +2,7 @@ package com.hipi.vm
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -96,23 +97,37 @@ class ActivityVmFac(
     }
 }
 
-
-inline fun <reified VM : BaseViewModel> FragmentActivity.createVm(
-    factoryProducer: AndroidViewModelFactory? = null
-): VM {
-    val factoryPromise = factoryProducer ?: ActivityVmFac(application, intent.extras, this);
-    val vm = ViewModelProviders.of(this, factoryPromise).get(VM::class.java)
+@MainThread
+inline fun <reified VM : BaseViewModel> Fragment.createVm(
+    noinline ownerProducer: () -> ViewModelStoreOwner = { this },
+    noinline factoryProducer: (() -> ViewModelProvider.Factory)? = {
+        FragmentVmFac(
+            activity!!.application,
+            arguments,
+            this
+        )
+    }
+): Lazy<VM> {
+    val vm = createViewModelLazy(VM::class, { ownerProducer().viewModelStore }, factoryProducer);
+    lifecycleScope.launchWhenCreated {
+        Log.d("createVm","vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData==null}")
+    }
     return vm
 }
 
 
+inline fun <reified VM : BaseViewModel> FragmentActivity.createVm(
+    noinline factoryProducer: (() -> ViewModelProvider.Factory)? = null
+): Lazy<VM> {
+    val factoryPromise = factoryProducer ?: {
+        ActivityVmFac(application, intent.extras, this);
+    }
+    val vm = ViewModelLazy(VM::class, { viewModelStore }, factoryPromise)
+    val act =this
+    lifecycleScope.launchWhenCreated {
+        Log.d("createVm","vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData==null}")
+    }
 
-inline fun <reified VM : BaseViewModel> Fragment.createVm(
-    factoryProducer: AndroidViewModelFactory? = null
-): VM {
-    val act = requireActivity()
-    val factoryPromise = factoryProducer ?: FragmentVmFac(act.application,   arguments, this);
-    val vm = ViewModelProviders.of(this, factoryPromise).get(VM::class.java)
     return vm
 }
 

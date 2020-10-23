@@ -46,7 +46,7 @@ dependencies {
     api depend.design()
     api depend.constraintLayout()
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    api 'com.github.MJLblabla:samrtload:v1.0'
+    api 'com.github.MJLblabla:samrtload:1.0.2'
 
 
 }

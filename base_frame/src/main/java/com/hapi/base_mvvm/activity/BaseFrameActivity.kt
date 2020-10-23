@@ -105,6 +105,17 @@ abstract class BaseFrameActivity : AppCompatActivity(), Toolbar.OnMenuItemClickL
         return title as String
     }
 
+    fun setTittleColor(color:Int){
+
+        if (isTitleCenter()) {
+            centerTitle?.setTextColor(color)
+        } else {
+            if (mToolbar != null) {
+                mToolbar?.setTitleTextColor(color)
+            }
+        }
+    }
+
     /**
      * 是否展示toolbar
      *
