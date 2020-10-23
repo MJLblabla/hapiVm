@@ -110,7 +110,7 @@ inline fun <reified VM : BaseViewModel> Fragment.createVm(
 ): Lazy<VM> {
     val vm = createViewModelLazy(VM::class, { ownerProducer().viewModelStore }, factoryProducer);
     lifecycleScope.launchWhenCreated {
-        Log.d("createVm","vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData==null}")
+        Log.d("createVm", "vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData == null}")
     }
     return vm
 }
@@ -123,9 +123,9 @@ inline fun <reified VM : BaseViewModel> FragmentActivity.createVm(
         ActivityVmFac(application, intent.extras, this);
     }
     val vm = ViewModelLazy(VM::class, { viewModelStore }, factoryPromise)
-    val act =this
+    val act = this
     lifecycleScope.launchWhenCreated {
-        Log.d("createVm","vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData==null}")
+        Log.d("createVm", "vm.value.mData==null  ${vm.value.javaClass} ${vm.value.mData == null}")
     }
 
     return vm
