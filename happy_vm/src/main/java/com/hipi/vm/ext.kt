@@ -23,14 +23,8 @@ class FragmentVmFac(
                 Application::class.java,
                 Bundle::class.java
             )
-            val vm: T =
-                if (constructor1 == null) {
-                    val constructor2 =
-                        modelClass.getConstructor(Application::class.java)
-                    constructor2.newInstance(application)
-                } else {
-                    constructor1.newInstance(application, bundle)
-                }
+            val vm: T = constructor1.newInstance(application, bundle)
+
             if (vm is BaseViewModel) {
                 vm.finishedActivityCall = { f.activity?.finish() }
                 vm.getFragmentManagrCall = { f.childFragmentManager }
@@ -43,7 +37,18 @@ class FragmentVmFac(
             vm
 
         } catch (e: NoSuchMethodException) {
-            super.create(modelClass)
+            val vmodel = super.create(modelClass)
+            if (vmodel is BaseViewModel) {
+                vmodel.finishedActivityCall = { f.activity?.finish() }
+                vmodel.getFragmentManagrCall = { f.childFragmentManager }
+                if (f is LoadingObserverView) {
+                    vmodel.showLoadingCall = {
+                        f.showLoading(it)
+                    }
+                }
+            }
+
+            vmodel as T
         } catch (e: IllegalAccessException) {
             throw RuntimeException("Cannot create an instance of $modelClass", e)
         } catch (e: InstantiationException) {
@@ -66,14 +71,8 @@ class ActivityVmFac(
                 Application::class.java,
                 Bundle::class.java
             )
-            val vm: T =
-                if (constructor1 == null) {
-                    val constructor2 =
-                        modelClass.getConstructor(Application::class.java)
-                    constructor2.newInstance(application)
-                } else {
-                    constructor1.newInstance(application, bundle)
-                }
+            val vm: T =  constructor1.newInstance(application, bundle)
+
             if (vm is BaseViewModel) {
                 vm.finishedActivityCall = { act.finish() }
                 vm.getFragmentManagrCall = { act.supportFragmentManager }
@@ -86,7 +85,18 @@ class ActivityVmFac(
             vm
 
         } catch (e: NoSuchMethodException) {
-            super.create(modelClass)
+           val vm2 = super.create(modelClass)
+
+            if (vm2 is BaseViewModel) {
+                vm2.finishedActivityCall = { act.finish() }
+                vm2.getFragmentManagrCall = { act.supportFragmentManager }
+                if (act is LoadingObserverView) {
+                    vm2.showLoadingCall = {
+                        act.showLoading(it)
+                    }
+                }
+            }
+            vm2
         } catch (e: IllegalAccessException) {
             throw RuntimeException("Cannot create an instance of $modelClass", e)
         } catch (e: InstantiationException) {
