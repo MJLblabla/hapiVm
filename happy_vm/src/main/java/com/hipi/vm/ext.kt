@@ -33,6 +33,7 @@ class FragmentVmFac(
                         f.showLoading(it)
                     }
                 }
+                f.lifecycle.addObserver(vm)
             }
             vm
 
@@ -46,6 +47,7 @@ class FragmentVmFac(
                         f.showLoading(it)
                     }
                 }
+                f.lifecycle.addObserver(vmodel)
             }
 
             vmodel as T
@@ -81,6 +83,7 @@ class ActivityVmFac(
                         act.showLoading(it)
                     }
                 }
+                act.lifecycle.addObserver(vm)
             }
             vm
 
@@ -95,6 +98,7 @@ class ActivityVmFac(
                         act.showLoading(it)
                     }
                 }
+                act.lifecycle.addObserver(vm2)
             }
             vm2
         } catch (e: IllegalAccessException) {

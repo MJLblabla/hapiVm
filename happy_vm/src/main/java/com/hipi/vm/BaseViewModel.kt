@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.lifecycle.LifecycleObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +22,7 @@ import java.lang.Exception
  * @author manjiale
  *
  */
-open class BaseViewModel : AndroidViewModel {
+open class BaseViewModel : AndroidViewModel,LifecycleObserver {
 
     var mData: Bundle? = null
         private set
@@ -55,6 +56,7 @@ open class BaseViewModel : AndroidViewModel {
             call().show(it, tag)
         }
     }
+
 
 
     override fun onCleared() {
