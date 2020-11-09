@@ -73,7 +73,9 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onResume() {
         super.onResume()
         dialog?.setCanceledOnTouchOutside(mCancelable)
-        dialog?.setOnKeyListener { v, keyCode, event -> keyCode == KeyEvent.KEYCODE_BACK }
+        if(!mCancelable){
+            dialog?.setOnKeyListener { v, keyCode, event -> keyCode == KeyEvent.KEYCODE_BACK }
+        }
     }
 
     abstract fun getViewLayoutId(): Int
